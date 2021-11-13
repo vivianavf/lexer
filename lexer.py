@@ -79,26 +79,25 @@ reserved = {
 }
 
 # List of token names.   This is always required
-tokens = ('NUMBER', 'MAS', 'MINUS', 'TIMES', 'DIVIDE', 'LPAREN', 'RPAREN',
-          'FLOTANTE', 'VARIABLE', 'STRING', 'EQUALS', 'SAME', 'MENORQUE',
+tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN',
+          'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA',
           'MAYORQUE', 'DOUBLE') + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
 t_MAS = r'\+'
-t_MINUS = r'-'
-t_TIMES = r'\*'
-t_DIVIDE = r'/'
+t_MENOS = r'-'
+t_MULTIPLICACION = r'\*'
+t_DIVISION = r'/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-t_NUMBER = r'\d+'
+t_ENTERO = r'\d+'
 t_FLOTANTE = r'\d+\.\d+'
+t_FINAL_DE_LINEA = r';'
+t_ASIGNACION = r'='
 t_EQUALS = r'=='  #son iguales
 t_SAME = '==='  #son iguales y del mismo tipo (el mismo objeto)
 t_MAYORQUE = r'>'
 t_MENORQUE = r'<'
-
-# t_VARIABLE = r'[a-z]+'
-
 
 # Define a rule so we can track line numbers
 def t_newline(t):
@@ -118,7 +117,7 @@ t_ignore = ' \t'
 
 
 def t_STRING(t):
-    r'\'.+\''
+    r'("|\').*("|\')'
     t.type = reserved.get(t.value, 'STRING')
     return t
 
@@ -128,10 +127,15 @@ def t_DOUBLE(t):
     t.type = reserved.get(t.value, 'DOUBLE')
     return t
 
+def t_IF(t):
+  r'if\(.+\)'
+  t.type = reserved.get(t.value, 'IF')
+  return t
+
 
 # Error handling rule
 def t_error(t):
-    print("Componente léxico no reconocido '%s'" % t.value[0])
+    print("No se reconoce el siguienre componente léxico --->'%s'" % t.value[0])
     t.lexer.skip(1)
 
 
@@ -139,8 +143,17 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = '''for i\n a \n 4<5\n 6>8 'esto es un string'
-1,2222
+data = '''
+$a = 3;
+$b = 2;
+$c = $a+$b;
+$d = $a-$b;
+
+if($c>$d){
+  echo "la variable a es mayor a b";
+}else{
+  echo "la variable a es menor a b";
+}
 '''
 
 # Give the lexer some input
