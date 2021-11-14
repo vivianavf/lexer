@@ -132,10 +132,20 @@ def t_IF(t):
   t.type = reserved.get(t.value, 'IF')
   return t
 
+def t_ECHO(t):
+    r'echo .+'
+    t.type = reserved.get(t.value, 'ECHO')
+    return t
+
+def t_ELSE(t):
+  r'else\{.+\}'
+  t.type = reserved.get(t.value, 'ELSE')
+  return t
+
 
 # Error handling rule
 def t_error(t):
-    print("No se reconoce el siguienre componente léxico --->'%s'" % t.value[0])
+    print("No se reconoce el siguiente componente léxico --->'%s'" % t.value[0])
     t.lexer.skip(1)
 
 
