@@ -81,7 +81,7 @@ reserved = {
 # List of token names.   This is always required
 tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN',
           'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA',
-          'MAYORQUE', 'DOUBLE') + tuple(reserved.values())
+          'MAYORQUE', 'DOUBLE','LLLAVE','RLLAVE') + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
 t_MAS = r'\+'
@@ -98,6 +98,8 @@ t_EQUALS = r'=='  #son iguales
 t_SAME = '==='  #son iguales y del mismo tipo (el mismo objeto)
 t_MAYORQUE = r'>'
 t_MENORQUE = r'<'
+t_LLLAVE = r'\{'
+t_RLLAVE = r'\}'
 
 # Define a rule so we can track line numbers
 def t_newline(t):
@@ -141,6 +143,14 @@ def t_ELSE(t):
   r'else\{.+\}'
   t.type = reserved.get(t.value, 'ELSE')
   return t
+
+def t_RETURN(t):
+    r'return.*'
+    t.type = reserved.get(t.value, 'RETURN')
+
+def t_USE(t):
+    r'use .+'
+    t.type = reserved.get(t.value, 'USE')
 
 
 # Error handling rule
