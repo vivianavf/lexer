@@ -141,11 +141,9 @@ def t_DOUBLE(t):
     t.type = reserved.get(t.value, 'DOUBLE')
     return t
 
-<<<<<<< HEAD
 def t_IF(t):
   r'if[\s]*\(.+\)'
   t.type = reserved.get(t.value, 'IF')
-=======
 def t_WHILE(t):
   r'while\(.+\)'
   t.type = reserved.get(t.value, 'WHILE')
@@ -154,7 +152,6 @@ def t_WHILE(t):
 def t_FOR(t):
   r'for\(.+\)'
   t.type = reserved.get(t.value, 'FOR')
->>>>>>> aff16633dccad846937a6f029725534b40a12602
   return t
 def t_ELSEIF(t):
   r'elseif[\s]*\(.+\)'
@@ -165,11 +162,6 @@ def t_ECHO(t):
     r'echo .+'
     t.type = reserved.get(t.value, 'ECHO')
     return t
-
-def t_IF(t):
-  r'if\(.+\)'
-  t.type = reserved.get(t.value, 'ECHO')
-  return t
 
 def t_ELSE(t):
   r'else[\s]*'
@@ -222,18 +214,15 @@ if($c>$d){
   echo "la variable a es menor a b";
 }
 
-<<<<<<< HEAD
 if ($a == $b and $c == $d){
   echo "a y b son iguales, c y d son iguales"
 }
-=======
 //Varios tipos de creación de arrays
 array("foo", "bar", "hello", "world")
 array("foo" => "bar", "bar" => "foo", 100   => -100, -100  => 100,)
 array(1 => "a", "1" => "b", 1.5 => "c", true => "d")
 array("foo" => "bar", "bar" => "foo")
 array("a", "b", 6 => "c", "d")
->>>>>>> aff16633dccad846937a6f029725534b40a12602
 '''
 
 # Give the lexer some input
