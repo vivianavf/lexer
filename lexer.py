@@ -81,7 +81,7 @@ reserved = {
 # List of token names.   This is always required
 tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN',
           'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA',
-          'MAYORQUE', 'DOUBLE','LLLAVE','RLLAVE') + tuple(reserved.values())
+          'MAYORQUE', 'DOUBLE','LLLAVE','RLLAVE', 'ASIGNACION_AUMENTADA', 'ASIGNACION_DISMINUIDA', 'DESIGUALDAD', 'MAYORIGUAL', 'MENORIGUAL', 'COMENTARIO') + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
 t_MAS = r'\+'
@@ -94,10 +94,15 @@ t_ENTERO = r'\d+'
 t_FLOTANTE = r'\d+\.\d+'
 t_FINAL_DE_LINEA = r';'
 t_ASIGNACION = r'='
+t_ASIGNACION_AUMENTADA = r'\+='
+t_ASIGNACION_DISMINUIDA = r'-='
 t_EQUALS = r'=='  #son iguales
 t_SAME = '==='  #son iguales y del mismo tipo (el mismo objeto)
+t_DESIGUALDAD = r'!='
 t_MAYORQUE = r'>'
 t_MENORQUE = r'<'
+t_MAYORIGUAL = r'>='
+t_MENORIGUAL = r'<='
 t_LLLAVE = r'\{'
 t_RLLAVE = r'\}'
 
@@ -123,6 +128,10 @@ def t_STRING(t):
     t.type = reserved.get(t.value, 'STRING')
     return t
 
+def t_ARRAY(t):
+  r'array\((.+,?)\)'
+  t.type = reserved.get(t.value, 'STRING')
+  return t
 
 def t_DOUBLE(t):
     r'(\d+,\d+)+'
@@ -134,27 +143,45 @@ def t_IF(t):
   t.type = reserved.get(t.value, 'IF')
   return t
 
+def t_WHILE(t):
+  r'while\(.+\)'
+  t.type = reserved.get(t.value, 'WHILE')
+  return t
+
+def t_FOR(t):
+  r'for\(.+\)'
+  t.type = reserved.get(t.value, 'FOR')
+  return t
+
 def t_ECHO(t):
     r'echo .+'
     t.type = reserved.get(t.value, 'ECHO')
     return t
 
 def t_ELSE(t):
-  r'else\{.+\}'
+  r'else'
   t.type = reserved.get(t.value, 'ELSE')
   return t
 
 def t_RETURN(t):
     r'return.*'
     t.type = reserved.get(t.value, 'RETURN')
+    return t
 
 def t_USE(t):
     r'use .+'
     t.type = reserved.get(t.value, 'USE')
+    return t
 
 def t_LIST(t):
     r'list\($([a-zA-Z]|_)([a-zA-Z]|\d|_)*,+\)'
     t.type = reserved.get(t.value, 'LIST')
+    return t
+
+def t_COMENTARIO(t):
+  r'(//.*)|(/\*.*\*/)|(\#.*)'
+  t.type = reserved.get(t.value, 'COMENTARIO')
+  return t
 
 
 # Error handling rule
@@ -178,6 +205,13 @@ if($c>$d){
 }else{
   echo "la variable a es menor a b";
 }
+
+//Varios tipos de creación de arrays
+array("foo", "bar", "hello", "world")
+array("foo" => "bar", "bar" => "foo", 100   => -100, -100  => 100,)
+array(1 => "a", "1" => "b", 1.5 => "c", true => "d")
+array("foo" => "bar", "bar" => "foo")
+array("a", "b", 6 => "c", "d")
 '''
 
 # Give the lexer some input
