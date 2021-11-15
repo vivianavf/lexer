@@ -152,6 +152,10 @@ def t_USE(t):
     r'use .+'
     t.type = reserved.get(t.value, 'USE')
 
+def t_LIST(t):
+    r'list\($([a-zA-Z]|_)([a-zA-Z]|\d|_)*,+\)'
+    t.type = reserved.get(t.value, 'LIST')
+
 
 # Error handling rule
 def t_error(t):
