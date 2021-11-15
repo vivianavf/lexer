@@ -157,6 +157,11 @@ def t_ECHO(t):
     t.type = reserved.get(t.value, 'ECHO')
     return t
 
+def t_IF(t):
+  r'if\(.+\)'
+  t.type = reserved.get(t.value, 'ECHO')
+  return t
+
 def t_ELSE(t):
   r'else\b'
   t.type = reserved.get(t.value, 'ELSE')
@@ -181,7 +186,6 @@ def t_COMENTARIO(t):
   r'(//.*)|(/\*.*\*/)|(\#.*)'
   t.type = reserved.get(t.value, 'COMENTARIO')
   return t
-
 
 # Error handling rule
 def t_error(t):
