@@ -98,6 +98,9 @@ t_EQUALS = r'=='  #son iguales
 t_SAME = '==='  #son iguales y del mismo tipo (el mismo objeto)
 t_MAYORQUE = r'>'
 t_MENORQUE = r'<'
+t_AND = r'\band\b'
+t_OR = r'\bor\b'
+# t_NEGACION_LOGICA = r'!'
 t_LLLAVE = r'\{'
 t_RLLAVE = r'\}'
 
@@ -130,11 +133,11 @@ def t_DOUBLE(t):
     return t
 
 def t_IF(t):
-  r'if\(.+\)'
+  r'if[\s]*\(.+\)'
   t.type = reserved.get(t.value, 'IF')
   return t
 def t_ELSEIF(t):
-  r'elseif\(.+\)'
+  r'elseif[\s]*\(.+\)'
   t.type = reserved.get(t.value, 'ELSEIF')
   return t
 
@@ -144,12 +147,12 @@ def t_ECHO(t):
     return t
 
 def t_ELSE(t):
-  r'else\b'
+  r'else[\s]*'
   t.type = reserved.get(t.value, 'ELSE')
   return t
 
 def t_RETURN(t):
-    r'return.*'
+    r'return[\s]*.*'
     t.type = reserved.get(t.value, 'RETURN')
 
 def t_USE(t):
@@ -172,10 +175,12 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
+$flot = 1.222;
 $a = 3;
 $b = 2;
 $c = $a+$b;
 $d = $a-$b;
+$cadena = "hola"
 
 if($c>$d){
   echo "la variable a es mayor a b";
@@ -183,6 +188,10 @@ if($c>$d){
   echo "la variable a es igual a b";
 }else{
   echo "la variable a es menor a b";
+}
+
+if ($a == $b and $c == $d){
+  echo "a y b son iguales, c y d son iguales"
 }
 '''
 
