@@ -133,6 +133,10 @@ def t_IF(t):
   r'if\(.+\)'
   t.type = reserved.get(t.value, 'IF')
   return t
+def t_ELSEIF(t):
+  r'elseif\(.+\)'
+  t.type = reserved.get(t.value, 'ELSEIF')
+  return t
 
 def t_ECHO(t):
     r'echo .+'
@@ -140,7 +144,7 @@ def t_ECHO(t):
     return t
 
 def t_ELSE(t):
-  r'else\{.+\}'
+  r'else\b'
   t.type = reserved.get(t.value, 'ELSE')
   return t
 
@@ -175,6 +179,8 @@ $d = $a-$b;
 
 if($c>$d){
   echo "la variable a es mayor a b";
+}elseif($c===$d){
+  echo "la variable a es igual a b";
 }else{
   echo "la variable a es menor a b";
 }
