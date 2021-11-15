@@ -153,7 +153,7 @@ def t_USE(t):
     t.type = reserved.get(t.value, 'USE')
 
 def t_LIST(t):
-    r'list\($([a-zA-Z]|_)([a-zA-Z]|\d|_)*,+\)'
+    r'list\(($([a-zA-Z]|_)([a-zA-Z]|\d|_)|.*)*,+\)'
     t.type = reserved.get(t.value, 'LIST')
 
 
