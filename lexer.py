@@ -122,46 +122,7 @@ def t_STRING2(t):
 
 
 
-# def t_ARRAY(t):
-#   r'array\((.+,?)\)'
-#   t.type = reserved.get(t.value, 'STRING')
-#   return t
 
-# def t_DOUBLE(t):
-#     r'(\d+,\d+)+'
-#     t.type = reserved.get(t.value, 'DOUBLE')
-#     return t
-
-# def t_WHILE(t):
-#   r'while\(.+\)'
-#   t.type = reserved.get(t.value, 'WHILE')
-#   return t
-
-# def t_FOR(t):
-#   r'for\(.+\)'
-#   t.type = reserved.get(t.value, 'FOR')
-#   return t
-
-# def t_ECHO(t):
-#     r'echo .+'
-#     t.type = reserved.get(t.value, 'ECHO')
-#     return t
-
-
-# def t_RETURN(t):
-#     r'return[\s]*.*'
-#     t.type = reserved.get(t.value, 'RETURN')
-#     return t
-
-# def t_USE(t):
-#     r'use .+'
-#     t.type = reserved.get(t.value, 'USE')
-#     return t
-
-# def t_LIST(t):
-#     r'list\($([a-zA-Z]|_)([a-zA-Z]|\d|_)*,+\)'
-#     t.type = reserved.get(t.value, 'LIST')
-#     return t
 
 def t_COMENTARIO(t):
   r'(//.*)|(/\*.*\*/)|(\#.*)'
