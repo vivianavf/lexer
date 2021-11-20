@@ -20,6 +20,8 @@ reserved = {
     'foreach': 'FOREACH',
     'function': 'FUNCTION',
     'if': 'IF',
+    'switch':"SWITCH",
+    'case':"CASE",
     'isset': 'ISSET',
     'list': 'LIST',
     'match': 'MATCH',
@@ -38,17 +40,20 @@ reserved = {
     'false': 'FALSE',
     'null': 'NULL',
     'void': 'VOID',
-    'object': 'OBJECT'
+    'object': 'OBJECT',
+    'php': "PHP"
     
 }
 
 # List of token names.   This is always required
-tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION', "COMA",
+tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION', "COMA","ASIGNACION2","PREGUNTA","DOLLAR","NUMERO","DOS_PUNTOS","AUTOINCREMENTO","AUTODECREMENTO","IDENTIFIER",
           'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING1','STRING2', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA', 'ID',"AMPERSANT","HASHTAG","DOT", "COMILLASIMPLE", "COMILLASDOBLES",
           'MAYORQUE', 'DOUBLE','LLLAVE','RLLAVE', 'ASIGNACION_AUMENTADA', 'ASIGNACION_DISMINUIDA', 'DESIGUALDAD', 'MAYORIGUAL', 'MENORIGUAL', 'COMENTARIO') + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
 #simbolor matematicos
+t_AUTOINCREMENTO = r'\+\+'
+t_AUTODECREMENTO = r'--'
 t_MAS = r'\+'
 t_MENOS = r'-'
 t_MULTIPLICACION = r'\*'
@@ -65,22 +70,26 @@ t_LBRACKET = r'\['
 t_RBRACKET = r'\['
 
 #primitivos
-t_ENTERO = r'\d+'
-t_FLOTANTE = r'\d+\.\d+'
+#  t_ENTERO = r'\d+'
+#  t_FLOTANTE = r'\d+\.\d+'
 
-#operadores
+# ASIGNACION
 t_ASIGNACION = r'='
+t_ASIGNACION2 = r'=>'
 
 # comparaciones
-t_EQUALS = r'=='  #son iguales
 t_SAME = '==='  #son iguales y del mismo tipo (el mismo objeto)
+t_EQUALS = r'=='  #son iguales
 t_DESIGUALDAD = r'!='
-t_MAYORQUE = r'>'
-t_MENORQUE = r'<'
 t_MAYORIGUAL = r'>='
 t_MENORIGUAL = r'<='
+t_MAYORQUE = r'>'
+t_MENORQUE = r'<'
+t_NEGACION = r'!'
 
 # carateres 
+t_DOLLAR = r'\$'
+t_PREGUNTA = r'\?'
 t_AMPERSANT = r'\&'
 t_HASHTAG = r'\#'
 t_DOT = r'\.'
@@ -88,16 +97,26 @@ t_COMA = r','
 t_COMILLASIMPLE = r'\''
 t_COMILLASDOBLES = r'\"'
 t_FINAL_DE_LINEA = r';'
+t_DOS_PUNTOS = r':'
 
 # Define a rule so we can track line numbers
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-
+#NUMERO, flotante o entero
+def t_NUMERO(t):
+    r'\d+(\.\d+)?'
+    t.value = float(t.value)
+    return t
 #Define una variable
 def t_VARIABLE(t):
     r'\$([a-zA-Z]|_)([a-zA-Z]|\d|_)*'
     t.type = reserved.get(t.value, 'VARIABLE')
+    return t
+#Define una variable
+def t_IDENTIFIER(t):
+    r'([a-zA-Z]|_)([a-zA-Z]|\d|_)*'
+    t.type = reserved.get(t.value, 'IDENTIFIER')
     return t
 #Define ID
 def t_ID(t):
@@ -140,9 +159,12 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
+<? php
 $flot = 1.222;
 $a = 3;
 $b = 2;
+$b--;
+$a++;
 $c = $a+$b;
 $d = $a-$b;
 $cadena = "hola"
@@ -156,7 +178,8 @@ if($c>$d){
   echo "la variable a es menor a b";
 }
 
-if ($a == $b and $c == $d){
+hola();
+if (!$a != $b and $c >= $d){
   echo "a y b son iguales, c y d son iguales"
 }
 //Varios tipos de creación de arrays
@@ -165,14 +188,16 @@ array("foo" => "bar", "bar" => "foo", 100   => -100, -100  => 100,)
 array(1 => "a", "1" => "b", 1.5 => "c", true => "d")
 array("foo" => "bar", "bar" => "foo")
 array("a", "b", 6 => "c", "d")
+?>
 '''
 
+if __name__ =="__main__":
 # Give the lexer some input
-lexer.input(data)
+    lexer.input(data)
 
 # Tokenize
-while True:
-    tok = lexer.token()
-    if not tok:
-        break  # No more input
-    print(tok)
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break  # No more input
+        print(tok)
