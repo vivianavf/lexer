@@ -44,7 +44,7 @@ reserved = {
 
 # List of token names.   This is always required
 tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION', "COMA",
-          'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA', 'ID',"AMPERSANT","HASHTAG","DOT", "COMILLASIMPLE", "COMILLASDOBLES",
+          'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING1','STRING2', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA', 'ID',"AMPERSANT","HASHTAG","DOT", "COMILLASIMPLE", "COMILLASDOBLES",
           'MAYORQUE', 'DOUBLE','LLLAVE','RLLAVE', 'ASIGNACION_AUMENTADA', 'ASIGNACION_DISMINUIDA', 'DESIGUALDAD', 'MAYORIGUAL', 'MENORIGUAL', 'COMENTARIO') + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
@@ -109,11 +109,18 @@ def t_ID(t):
 # A string containing ignored characters (spaces and tabs)
 t_ignore = ' \t'
 
+# cadena que usa comillas dobles
+def t_STRING1(t):
+    r'\"([^\\\n]|(\\.))*?\"'
+    return t
 
-# def t_STRING(t):
-#     r'("|\').*("|\')'
-#     t.type = reserved.get(t.value, 'STRING')
-#     return t
+# cadena que usa comillas simples
+def t_STRING2(t):
+    r'\'([^\\\n]|(\\.))*?\''
+    # r'\'([^\'].)*\''
+    return t
+
+
 
 # def t_ARRAY(t):
 #   r'array\((.+,?)\)'
@@ -178,6 +185,7 @@ $b = 2;
 $c = $a+$b;
 $d = $a-$b;
 $cadena = "hola"
+$cadena = 'hola/''
 
 if($c>$d){
   echo "la variable a es mayor a b";
