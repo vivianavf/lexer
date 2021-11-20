@@ -43,8 +43,8 @@ reserved = {
 }
 
 # List of token names.   This is always required
-tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION'
-          'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA',
+tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION', "COMA",
+          'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA', 'ID',"AMPERSANT","HASHTAG","DOT", "COMILLASIMPLE", "COMILLASDOBLES",
           'MAYORQUE', 'DOUBLE','LLLAVE','RLLAVE', 'ASIGNACION_AUMENTADA', 'ASIGNACION_DISMINUIDA', 'DESIGUALDAD', 'MAYORIGUAL', 'MENORIGUAL', 'COMENTARIO') + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
@@ -61,8 +61,8 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LLLAVE = r'\{'
 t_RLLAVE = r'\}'
-t_LBRACKET = r'['
-t_RBRACKET = r'['
+t_LBRACKET = r'\['
+t_RBRACKET = r'\['
 
 #primitivos
 t_ENTERO = r'\d+'
@@ -80,16 +80,13 @@ t_MENORQUE = r'<'
 t_MAYORIGUAL = r'>='
 t_MENORIGUAL = r'<='
 
-# operaciones booleanas
-t_AND = r'\band\b'
-t_OR = r'\bor\b'
-
-# condicionales
-t_IF = r'if\b'
-t_ELSE = r'else\b'
-t_ELSEIF = r'elseif\b'
-
-
+# carateres 
+t_AMPERSANT = r'\&'
+t_HASHTAG = r'\#'
+t_DOT = r'\.'
+t_COMA = r','
+t_COMILLASIMPLE = r'\''
+t_COMILLASDOBLES = r'\"'
 t_FINAL_DE_LINEA = r';'
 
 # Define a rule so we can track line numbers
@@ -97,11 +94,15 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-
 #Define una variable
 def t_VARIABLE(t):
     r'\$([a-zA-Z]|_)([a-zA-Z]|\d|_)*'
     t.type = reserved.get(t.value, 'VARIABLE')
+    return t
+#Define ID
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value,'ID')    # Check for reserved words
     return t
 
 
@@ -109,51 +110,51 @@ def t_VARIABLE(t):
 t_ignore = ' \t'
 
 
-def t_STRING(t):
-    r'("|\').*("|\')'
-    t.type = reserved.get(t.value, 'STRING')
-    return t
+# def t_STRING(t):
+#     r'("|\').*("|\')'
+#     t.type = reserved.get(t.value, 'STRING')
+#     return t
 
-def t_ARRAY(t):
-  r'array\((.+,?)\)'
-  t.type = reserved.get(t.value, 'STRING')
-  return t
+# def t_ARRAY(t):
+#   r'array\((.+,?)\)'
+#   t.type = reserved.get(t.value, 'STRING')
+#   return t
 
-def t_DOUBLE(t):
-    r'(\d+,\d+)+'
-    t.type = reserved.get(t.value, 'DOUBLE')
-    return t
+# def t_DOUBLE(t):
+#     r'(\d+,\d+)+'
+#     t.type = reserved.get(t.value, 'DOUBLE')
+#     return t
 
-def t_WHILE(t):
-  r'while\(.+\)'
-  t.type = reserved.get(t.value, 'WHILE')
-  return t
+# def t_WHILE(t):
+#   r'while\(.+\)'
+#   t.type = reserved.get(t.value, 'WHILE')
+#   return t
 
-def t_FOR(t):
-  r'for\(.+\)'
-  t.type = reserved.get(t.value, 'FOR')
-  return t
+# def t_FOR(t):
+#   r'for\(.+\)'
+#   t.type = reserved.get(t.value, 'FOR')
+#   return t
 
-def t_ECHO(t):
-    r'echo .+'
-    t.type = reserved.get(t.value, 'ECHO')
-    return t
+# def t_ECHO(t):
+#     r'echo .+'
+#     t.type = reserved.get(t.value, 'ECHO')
+#     return t
 
 
-def t_RETURN(t):
-    r'return[\s]*.*'
-    t.type = reserved.get(t.value, 'RETURN')
-    return t
+# def t_RETURN(t):
+#     r'return[\s]*.*'
+#     t.type = reserved.get(t.value, 'RETURN')
+#     return t
 
-def t_USE(t):
-    r'use .+'
-    t.type = reserved.get(t.value, 'USE')
-    return t
+# def t_USE(t):
+#     r'use .+'
+#     t.type = reserved.get(t.value, 'USE')
+#     return t
 
-def t_LIST(t):
-    r'list\($([a-zA-Z]|_)([a-zA-Z]|\d|_)*,+\)'
-    t.type = reserved.get(t.value, 'LIST')
-    return t
+# def t_LIST(t):
+#     r'list\($([a-zA-Z]|_)([a-zA-Z]|\d|_)*,+\)'
+#     t.type = reserved.get(t.value, 'LIST')
+#     return t
 
 def t_COMENTARIO(t):
   r'(//.*)|(/\*.*\*/)|(\#.*)'
