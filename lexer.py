@@ -39,42 +39,58 @@ reserved = {
     'null': 'NULL',
     'void': 'VOID',
     'object': 'OBJECT'
+    
 }
 
 # List of token names.   This is always required
-tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN',
+tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION'
           'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA',
           'MAYORQUE', 'DOUBLE','LLLAVE','RLLAVE', 'ASIGNACION_AUMENTADA', 'ASIGNACION_DISMINUIDA', 'DESIGUALDAD', 'MAYORIGUAL', 'MENORIGUAL', 'COMENTARIO') + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
+#simbolor matematicos
 t_MAS = r'\+'
 t_MENOS = r'-'
 t_MULTIPLICACION = r'\*'
 t_DIVISION = r'/'
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
-t_ENTERO = r'\d+'
-t_FLOTANTE = r'\d+\.\d+'
-t_FINAL_DE_LINEA = r';'
-t_ASIGNACION = r'='
 t_ASIGNACION_AUMENTADA = r'\+='
 t_ASIGNACION_DISMINUIDA = r'-='
+
+# simpbolos de agrupacion
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_LLLAVE = r'\{'
+t_RLLAVE = r'\}'
+t_LBRACKET = r'['
+t_RBRACKET = r'['
+
+#primitivos
+t_ENTERO = r'\d+'
+t_FLOTANTE = r'\d+\.\d+'
+
+#operadores
+t_ASIGNACION = r'='
+
+# comparaciones
 t_EQUALS = r'=='  #son iguales
 t_SAME = '==='  #son iguales y del mismo tipo (el mismo objeto)
 t_DESIGUALDAD = r'!='
 t_MAYORQUE = r'>'
 t_MENORQUE = r'<'
+t_MAYORIGUAL = r'>='
+t_MENORIGUAL = r'<='
+
+# operaciones booleanas
 t_AND = r'\band\b'
 t_OR = r'\bor\b'
+
+# condicionales
 t_IF = r'if\b'
 t_ELSE = r'else\b'
 t_ELSEIF = r'elseif\b'
-# t_NEGACION_LOGICA = r'!'
-t_MAYORIGUAL = r'>='
-t_MENORIGUAL = r'<='
-t_LLLAVE = r'\{'
-t_RLLAVE = r'\}'
 
+
+t_FINAL_DE_LINEA = r';'
 
 # Define a rule so we can track line numbers
 def t_newline(t):
