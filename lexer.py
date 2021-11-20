@@ -103,11 +103,15 @@ t_MAYORQUE = r'>'
 t_MENORQUE = r'<'
 t_AND = r'\band\b'
 t_OR = r'\bor\b'
+t_IF = r'if\b'
+t_ELSE = r'else\b'
+t_ELSEIF = r'elseif\b'
 # t_NEGACION_LOGICA = r'!'
 t_MAYORIGUAL = r'>='
 t_MENORIGUAL = r'<='
 t_LLLAVE = r'\{'
 t_RLLAVE = r'\}'
+
 
 # Define a rule so we can track line numbers
 def t_newline(t):
@@ -141,9 +145,6 @@ def t_DOUBLE(t):
     t.type = reserved.get(t.value, 'DOUBLE')
     return t
 
-def t_IF(t):
-  r'if[\s]*\(.+\)'
-  t.type = reserved.get(t.value, 'IF')
 def t_WHILE(t):
   r'while\(.+\)'
   t.type = reserved.get(t.value, 'WHILE')
@@ -153,20 +154,12 @@ def t_FOR(t):
   r'for\(.+\)'
   t.type = reserved.get(t.value, 'FOR')
   return t
-def t_ELSEIF(t):
-  r'elseif[\s]*\(.+\)'
-  t.type = reserved.get(t.value, 'ELSEIF')
-  return t
 
 def t_ECHO(t):
     r'echo .+'
     t.type = reserved.get(t.value, 'ECHO')
     return t
 
-def t_ELSE(t):
-  r'else[\s]*'
-  t.type = reserved.get(t.value, 'ELSE')
-  return t
 
 def t_RETURN(t):
     r'return[\s]*.*'
