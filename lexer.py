@@ -154,7 +154,6 @@ data = ''.join(f.readlines())
 
 if __name__ =="__main__":
 # Give the lexer some input
-    print(data)
     lexer.input(data)
 
 # Tokenize
