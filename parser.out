@@ -3,33 +3,20 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     AMPERSANT
-    AS
-    CASE
     COMILLASDOBLES
     COMILLASIMPLE
-    DECLARE
-    DEFAULT
     DOLLAR
     DOS_PUNTOS
     DOUBLE
     ENTERO
     FLOTANTE
-    FOREACH
     HASHTAG
     ID
-    ISSET
     LBRACKET
-    LIST
-    MATCH
     NULL
     OBJECT
-    PRINT
     RBRACKET
-    STATIC
-    SWITCH
-    UNSET
     VAR
-    VOID
 
 Grammar
 
@@ -179,7 +166,6 @@ AMPERSANT            :
 AND                  : 78
 ARRAY                : 107
 ARROW                : 119 120 121 122 123
-AS                   : 
 ASIGNACION           : 34 60 108 119 120 122 136
 ASIGNACION2          : 102
 ASIGNACION_AUMENTADA : 63
@@ -187,7 +173,6 @@ ASIGNACION_DISMINUIDA : 64
 AUTODECREMENTO       : 62
 AUTOINCREMENTO       : 61
 BREAK                : 92 93
-CASE                 : 
 CLASS                : 127
 COMA                 : 106 110 115
 COMENTARIO           : 129 138
@@ -195,8 +180,6 @@ COMILLASDOBLES       :
 COMILLASIMPLE        : 
 CONCAT_ASIG          : 35 36
 CONTINUE             : 94 95
-DECLARE              : 
-DEFAULT              : 
 DESIGUALDAD          : 77
 DIVISION             : 48
 DOLLAR               : 
@@ -212,19 +195,15 @@ FALSE                : 84
 FINAL_DE_LINEA       : 16 17 19 92 93 94 95 96 97 101 101 128 137
 FLOTANTE             : 
 FOR                  : 101
-FOREACH              : 
 FUNCTION             : 116 132 133
 HASHTAG              : 
 ID                   : 
 IDENTIFIER           : 116 117 118 119 120 121 122 127 132 133
 IF                   : 87
-ISSET                : 
 LBRACKET             : 
-LIST                 : 
 LLLAVE               : 90 91 92 93 94 95 96 97 127
 LPAREN               : 87 88 100 101 107 111 112 117 118
 MAS                  : 37 38 39 40 41 45
-MATCH                : 
 MAYORIGUAL           : 73
 MAYORQUE             : 3 71
 MENORIGUAL           : 74
@@ -239,7 +218,6 @@ OBJECT               :
 OR                   : 79
 PHP                  : 2
 PREGUNTA             : 2 3
-PRINT                : 
 PRIVATE              : 125
 PROTECTED            : 126
 PUBLIC               : 124
@@ -248,16 +226,12 @@ RETURN               : 98 99
 RLLAVE               : 90 91 92 93 94 95 96 97 127
 RPAREN               : 87 88 100 101 107 111 112 117 118
 SAME                 : 75
-STATIC               : 
 STRING1              : 30
 STRING2              : 31
-SWITCH               : 
 THIS                 : 119
 TRUE                 : 83
-UNSET                : 
 VAR                  : 
 VARIABLE             : 28 33 34 35 36 36 51 52 55 57 60 61 62 63 64 108 109 110 120 121 122 122 123 128 136
-VOID                 : 
 WHILE                : 100
 error                : 
 
