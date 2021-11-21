@@ -56,6 +56,11 @@ $array3 = array(1 => "a", "1" => "b", 1.5 => "c", true => "d");
 $array4 = array("foo" => "bar", "bar" => "foo");
 $array5 = array("a", "b", 6 => "c", "d");
 
+$cars = array("Volvo", "BMW", "Toyota");
+echo "I like " . $cars[0] . ", " . $cars[1] . " and " . $cars[2] . ".";
+echo $array5[6];
+$suma = $array2[100] + $array5[-100];
+
 //functions
 function writeMsg() {
   echo "Hello world!";

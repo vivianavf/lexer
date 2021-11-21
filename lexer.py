@@ -55,7 +55,7 @@ t_RPAREN = r'\)'
 t_LLLAVE = r'\{'
 t_RLLAVE = r'\}'
 t_LBRACKET = r'\['
-t_RBRACKET = r'\['
+t_RBRACKET = r'\]'
 
 #primitivos
 #  t_ENTERO = r'\d+'

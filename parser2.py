@@ -70,6 +70,7 @@ def p_expresion (p):
                     | boolean
                     | array
                     | var_accs
+                    | func_call
     '''
     pass
 
@@ -97,15 +98,19 @@ def p_string_concat2(p):
 def p_string_concat3(p):
     ' string_concat : DOT VARIABLE'
     pass
-# match ( . <variable> ) 
+# match ( . <function>(...args) ) 
 def p_string_concat4(p):
     ' string_concat : DOT func_call'
+    pass
+def p_string_concat5(p):
+    ' string_concat : DOT var_accs'
     pass
 
 # match strings con "" y con ''
 def p_string_1 (p): 
     '''string : STRING1 
-                | STRING2'''
+                | STRING2
+    '''
     pass
 
 # se define como string a un "" segudo por multiples concatenaciones
@@ -192,7 +197,14 @@ def p_math_expr3 (p):
 def p_math_expr4 (p):
     'math_expr : signo VARIABLE '
     pass
-def p_math_expr5(p):
+def p_math_expr5 (p):
+    'math_expr : var_accs '
+    pass
+#math vaiables idividuales cons signos
+def p_math_expr6 (p):
+    'math_expr : signo var_accs '
+    pass
+def p_math_expr7(p):
     'math_expr : math_expr operaciones_mat'
     pass
 
@@ -204,12 +216,18 @@ def p_oper__mat0 (p):
 def p_oper__mat1 (p): 
     'operacion_mat : math_oper VARIABLE'
     pass
-def p_oper__mat2 (p):
+def p_oper__mat2 (p): 
+    'operacion_mat : math_oper var_accs'
+    pass
+def p_oper__mat3 (p):
     'operacion_mat : signo NUMERO'
     pass
 # match (operador con variable) ej. + $uno
-def p_oper__mat3 (p): 
+def p_oper__mat4 (p): 
     'operacion_mat : signo VARIABLE'
+    pass
+def p_oper__mat5 (p): 
+    'operacion_mat : signo var_accs'
     pass
 # operaciones, define la lista de operaciones matematicas continuas
 def p_operaciones1 (p):
@@ -379,6 +397,13 @@ def p_array(p):
 def p_array_declaration(p):
     'var_dcl : VARIABLE ASIGNACION array'
 
+######################################
+# indexing
+######################################
+def p_array_indexing(p):
+    ' var_accs : VARIABLE LBRACKET expresion RBRACKET'
+# def p_copy_array_element (p):
+#     ' var_accs : indexing'
 
 #######################################################################################################3
 # functions
@@ -424,7 +449,7 @@ def p_member_modification(p):
 def p_member_access(p):
     ' var_accs : VARIABLE ARROW IDENTIFIER '
 def p_member_copy(p):
-    ' var_dcl : VARIABLE ASIGNACION VARIABLE ARROW IDENTIFIER'
+    ' var_dcl : VARIABLE ASIGNACION var_accs'
 def p_member_func_call(p):
     ' func_call : VARIABLE ARROW func_call'
 def p_var_modif_acso (p):
