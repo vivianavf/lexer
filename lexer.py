@@ -46,7 +46,7 @@ reserved = {
 }
 
 # List of token names.   This is always required
-tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION', "COMA","ASIGNACION2","PREGUNTA","DOLLAR","NUMERO","DOS_PUNTOS","AUTOINCREMENTO","AUTODECREMENTO","IDENTIFIER",
+tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION', "COMA","ASIGNACION2","PREGUNTA","DOLLAR","NUMERO","DOS_PUNTOS","AUTOINCREMENTO","AUTODECREMENTO","IDENTIFIER","CONCAT_ASIG",
           'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING1','STRING2', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA', 'ID',"AMPERSANT","HASHTAG","DOT", "COMILLASIMPLE", "COMILLASDOBLES",
           'MAYORQUE', 'DOUBLE','LLLAVE','RLLAVE', 'ASIGNACION_AUMENTADA', 'ASIGNACION_DISMINUIDA', 'DESIGUALDAD', 'MAYORIGUAL', 'MENORIGUAL', 'COMENTARIO') + tuple(reserved.values())
 
@@ -73,9 +73,11 @@ t_RBRACKET = r'\['
 #  t_ENTERO = r'\d+'
 #  t_FLOTANTE = r'\d+\.\d+'
 
+
 # ASIGNACION
 t_ASIGNACION = r'='
 t_ASIGNACION2 = r'=>'
+t_CONCAT_ASIG = r'\.='
 
 # comparaciones
 t_SAME = '==='  #son iguales y del mismo tipo (el mismo objeto)
@@ -94,8 +96,8 @@ t_AMPERSANT = r'\&'
 t_HASHTAG = r'\#'
 t_DOT = r'\.'
 t_COMA = r','
-t_COMILLASIMPLE = r'\''
-t_COMILLASDOBLES = r'\"'
+# t_COMILLASIMPLE = r'\''
+# t_COMILLASDOBLES = r'\"'
 t_FINAL_DE_LINEA = r';'
 t_DOS_PUNTOS = r':'
 
@@ -158,41 +160,12 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = '''
-<? php
-$flot = 1.222;
-$a = 3;
-$b = 2;
-$b--;
-$a++;
-$c = $a+$b;
-$d = $a-$b;
-$cadena = "hola"
-$cadena = 'hola/''
-
-if($c>$d){
-  echo "la variable a es mayor a b";
-}elseif($c===$d){
-  echo "la variable a es igual a b";
-}else{
-  echo "la variable a es menor a b";
-}
-
-hola();
-if (!$a != $b and $c >= $d){
-  echo "a y b son iguales, c y d son iguales"
-}
-//Varios tipos de creación de arrays
-array("foo", "bar", "hello", "world")
-array("foo" => "bar", "bar" => "foo", 100   => -100, -100  => 100,)
-array(1 => "a", "1" => "b", 1.5 => "c", true => "d")
-array("foo" => "bar", "bar" => "foo")
-array("a", "b", 6 => "c", "d")
-?>
-'''
+f = open("index.php")
+data = ''.join(f.readlines())
 
 if __name__ =="__main__":
 # Give the lexer some input
+    print(data)
     lexer.input(data)
 
 # Tokenize

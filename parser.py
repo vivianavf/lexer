@@ -165,35 +165,35 @@ def p_selection_stmt_4(p):
 	'selection_stmt : SWITCH LPAREN var_val RPAREN statement'
 	pass
 
-def p_selection_stmt_5(p):
+def p_selection_stmt_5(p):#switch case para numero
 	'selection_stmt : CASE NUMERO DOS_PUNTOS statement BREAK FINAL_DE_LINEA'
 	pass
 
-def p_selection_stmt_6(p):
+def p_selection_stmt_6(p):#dafult case in switch
 	'selection_stmt : DEFAULT DOS_PUNTOS statement BREAK FINAL_DE_LINEA'
 	pass
 
-def p_selection_stmt_7(p):
+def p_selection_stmt_7(p):#ternary operator
     'selection_stmt : VARIABLE relop VARIABLE PREGUNTA expression DOS_PUNTOS expression FINAL_DE_LINEA'
     pass
 
-def p_iteration_stmt_1(p):
+def p_iteration_stmt_1(p):# while loop
 	'iteration_stmt : WHILE LPAREN expression RPAREN statement'
 	pass
 
-def p_iteration_stmt_2(p):
+def p_iteration_stmt_2(p):# for loop
 	'iteration_stmt : FOR LPAREN var_declaration2 FINAL_DE_LINEA expression FINAL_DE_LINEA additive_expression RPAREN statement'
 	pass
 
-def p_iteration_stmt_3(p):
+def p_iteration_stmt_3(p): # for each
     'iteration_stmt : FOREACH LPAREN var_val AS var_val RPAREN statement'
     pass
 
-def p_return_stmt_1(p):
+def p_return_stmt_1(p): # return void
 	'return_stmt : RETURN FINAL_DE_LINEA'
 	pass
 
-def p_return_stmt_2(p):
+def p_return_stmt_2(p):# return value
 	'return_stmt : RETURN expression FINAL_DE_LINEA'
 	pass
 
@@ -209,7 +209,7 @@ def p_var_1(p):
 	'var_val : VARIABLE'
 	pass
 
-def p_var_2(p):
+def p_var_2(p): # indexing, $hola[456]
 	'var_val : VARIABLE LBRACKET expression RBRACKET'
 	pass
 
@@ -340,5 +340,5 @@ def p_error(p):
 
 parser = yacc.yacc()
 if __name__ == "__main__":
-    parser.parse(lexer.data,debug=True)
+    parser.parse(lexer.data)
     
