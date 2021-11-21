@@ -39,9 +39,11 @@ $x = 0;
 while($x <= 100) {
   echo "The number is: $x <br>";
   $x+=10;
+  //comment
 }
 for ($x = 0; $x <= 10; $x++) {
   echo "The number is: $x <br>";
+  //comment
 }
 for ($x = 0; $x <= 100; $x+=10) {
   echo "The number is: $x <br>";
@@ -54,6 +56,89 @@ $array3 = array(1 => "a", "1" => "b", 1.5 => "c", true => "d");
 $array4 = array("foo" => "bar", "bar" => "foo");
 $array5 = array("a", "b", 6 => "c", "d");
 
+//functions
+function writeMsg() {
+  echo "Hello world!";
+}
+
+writeMsg(); // call the function
+
+function familyName($fname) {
+  echo "$fname Refsnes.<br>";
+}
+
+familyName("Jani");
+familyName("Hege");
+familyName("Stale");
+familyName("Kai Jim");
+familyName("Borge");
+
+
+function familyName($fname, $year) {
+  echo "$fname Refsnes. Born in $year <br>";
+}
+
+familyName("Hege", "1975");
+familyName("Stale", "1978");
+familyName("Kai Jim", "1983");
+
+//classes
+class Fruit {
+  public $name;
+  function set_name($name) {
+    $this->name = $name;
+  }
+}
+$apple = new Fruit();
+$apple->set_name("Apple");
+
+echo $apple->name;
+
+$apple_name = $apple-> name;
+
+class Fruit {
+  // Properties
+  public $name;
+  public $color;
+
+  // Methods
+  function set_name($name) {
+    $this->name = $name;
+  }
+  function get_name() {
+    return $this->name;
+  }
+  function set_color($color) {
+    $this->color = $color;
+  }
+  function get_color() {
+    return $this->color;
+  }
+}
+
+$apple = new Fruit();
+$apple->set_name('Apple');
+$apple->set_color('Red');
+
+echo "Name: " . $apple->get_name();
+echo "<br>";
+echo "Color: " . $apple->get_color();
+
+class Fruit {
+  public $name;
+  private $color;
+  protected $weight;
+
+  function set_name($n) {  // a public function (default)
+    $this->name = $n;
+  }
+  protected function set_color($n) { // a protected function
+    $this->color = $n;
+  }
+  private function set_weight($n) { // a private function
+    $this->weight = $n;
+  }
+}
 
 
 ?>

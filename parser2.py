@@ -17,12 +17,12 @@ def p_php_end(p):
     'php_end : PREGUNTA MAYORQUE'
     pass
 # statements match every posible php line of code
-def p_php_statements_1(p):
+def p_php_statements_single(p):
     'statements : statement'
     pass
         
 # statements match every posible php line of code
-def p_php_statements_2(p):
+def p_php_statements_many(p):
     'statements : statements statement' 
     # defincion recursiva statements "statements" es igual a uno o varios "statement"
     pass
@@ -34,19 +34,32 @@ def p_php_statement_0 (p):
                     | if_statement
                     | for_loop
                     | while_lopp
+                    | class
                     | comentario
+                    | function
+                    | function_call
                     | echo
     '''
     pass
 
 #######################################################################################################3
-# declaracion y modficacion de variable
+# global scope
 #######################################################################################################3
 def p_var_declaration_base(p):
     'var_declaration : var_dcl FINAL_DE_LINEA'
 
 def p_var_modification_base(p):
     'var_modification : var_modi FINAL_DE_LINEA'
+
+def p_function_declaration (p):
+    'function : func '
+
+def p_function_call (p):
+    'function_call : func_call FINAL_DE_LINEA'
+
+#######################################################################################################3
+# declaracion y modficacion de variable
+#######################################################################################################3
 ######################################
 # expresion, everithing that can be stored in a vaiable 
 ######################################
@@ -56,6 +69,7 @@ def p_expresion (p):
                     | string
                     | boolean
                     | array
+                    | var_accs
     '''
     pass
 
@@ -74,19 +88,18 @@ def p_string_concats1(p):
     ' string_concats : string_concats string_concat '
     pass
 
-# match (. "<cadnea>")
-def p_string_concat1(p): 
-    ' string_concat :  DOT STRING1  '
-    pass
-
-# match (. '<cadnea>')
+# match (. <cadnea>)
 def p_string_concat2(p):
-    ' string_concat :  DOT STRING2  '
+    ' string_concat :  DOT string  '
     pass
 
 # match ( . <variable> ) 
 def p_string_concat3(p):
     ' string_concat : DOT VARIABLE'
+    pass
+# match ( . <variable> ) 
+def p_string_concat4(p):
+    ' string_concat : DOT func_call'
     pass
 
 # match strings con "" y con ''
@@ -307,6 +320,30 @@ def p_else_statement (p):
 ######################################
 def p_scope_base (p):
     'scope : LLLAVE statements RLLAVE'
+def p_scope_empty (p):
+    'scope : LLLAVE RLLAVE'
+
+def p_scope_break (p):
+    'scope : LLLAVE statements BREAK FINAL_DE_LINEA RLLAVE'
+def p_scope_just_break (p):
+    'scope : LLLAVE BREAK FINAL_DE_LINEA RLLAVE'
+
+def p_scope_continue (p):
+    'scope : LLLAVE statements CONTINUE FINAL_DE_LINEA RLLAVE'
+def p_scope_just_continue (p):
+    'scope : LLLAVE CONTINUE FINAL_DE_LINEA RLLAVE'
+
+def p_scope_return (p):
+    'scope : LLLAVE statements return FINAL_DE_LINEA RLLAVE'
+def p_scope_just_return (p):
+    'scope : LLLAVE return FINAL_DE_LINEA RLLAVE'
+######################################
+# return
+######################################
+def p_return_void (p):
+    ' return : RETURN'
+def p_return_value (p):
+    ' return : RETURN expresion'
 
 #######################################################################################################3
 # while loop
@@ -330,17 +367,10 @@ def p_assigncacionArrow(p):
 def p_arrayItem (p):
     ''' array_item : assigncacionArrow 
                     | expresion'''
-def p_key_value_items (p):
+def p_arrayItems_single (p):
     ' array_items : array_item '
-def p_key_value_items2 (p):
+def p_arrayItems (p):
     ' array_items : array_item COMA array_items'
-#define a single element o an array
-def p_argument (p):
-    ' arg : expresion'
-def p_manyArgument_base (p):
-    ' many_args : arg'
-def p_manyArgument_recursive (p):
-    ' many_args :  arg COMA many_args'
 
 
 def p_array(p):
@@ -348,6 +378,93 @@ def p_array(p):
 
 def p_array_declaration(p):
     'var_dcl : VARIABLE ASIGNACION array'
+
+
+#######################################################################################################3
+# functions
+#######################################################################################################3
+# arguments for a function definition
+def p_arguments_single (p):
+    'arguments : VARIABLE'
+def p_arguments_many (p):
+    'arguments : VARIABLE COMA arguments'
+def p_fn_no_args (p):
+    'args : LPAREN RPAREN'
+def p_fn_args (p):
+    'args : LPAREN arguments RPAREN'
+
+# function argument values list, for a function call
+def p_fun_argument_value (p):
+    ' value : expresion'
+def p_func_argument_values_single (p):
+    ' values : value'
+def p_func_argument_values_many (p):
+    ' values :  value COMA values'
+
+# defincion de una funcion
+def p_func(p):
+    ' func : FUNCTION IDENTIFIER args scope'
+
+# definition de una llamada a una funcion
+def p_func_call_no_arguments (p):
+    ' func_call : IDENTIFIER LPAREN RPAREN'
+def p_func_call_with_arguments (p):
+    ' func_call : IDENTIFIER LPAREN values RPAREN '
+
+#######################################################################################################3
+# class
+#######################################################################################################3
+######################################
+# self reference, using "this->"
+######################################
+def p_self_ref(p):
+    ' var_modi : THIS ARROW IDENTIFIER ASIGNACION expresion'
+def p_member_modification(p):
+    ' var_modi : VARIABLE ARROW IDENTIFIER ASIGNACION expresion'
+def p_member_access(p):
+    ' var_accs : VARIABLE ARROW IDENTIFIER '
+def p_member_copy(p):
+    ' var_dcl : VARIABLE ASIGNACION VARIABLE ARROW IDENTIFIER'
+def p_member_func_call(p):
+    ' func_call : VARIABLE ARROW func_call'
+def p_var_modif_acso (p):
+    ''' modf_acso : PUBLIC 
+                    | PRIVATE
+                    | PROTECTED
+    '''
+def p_class (p):
+    ' class : CLASS IDENTIFIER LLLAVE mem_vars mem_funcs  RLLAVE'
+######################################
+# class member variables
+######################################
+def p_member_var_dcl (p):
+    ' mem_var_dcl : modf_acso VARIABLE FINAL_DE_LINEA '
+def p_member_var_dcl_comentario (p):#TODO: esto no debe hacerse asi, los comentarios debern ser ignorados 
+    ' mem_var_dcl : COMENTARIO'
+def p_member_variables_base (p):
+    ' mem_vars : mem_var_dcl' 
+def p_member_variables_many (p):
+    ' mem_vars : mem_var_dcl mem_vars'
+
+######################################
+# class member functions
+######################################
+
+def p_mem_func_acs_mod(p):
+    ' mem_func : modf_acso FUNCTION IDENTIFIER args scope'
+def p_mem_func_default(p):
+    ' mem_func : FUNCTION IDENTIFIER args scope'
+def p_mem_funcs_single (p):
+    ' mem_funcs : mem_func'
+def p_mem_funcs_many (p):
+    ' mem_funcs : mem_func mem_funcs'
+
+######################################
+# class instanciacion 
+######################################
+def p_instanciacion(p):
+    'var_dcl : VARIABLE ASIGNACION NEW func_call'
+
 # printing to the console
 def p_echo (p):
     'echo : ECHO expresion FINAL_DE_LINEA'

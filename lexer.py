@@ -41,13 +41,14 @@ reserved = {
     'null': 'NULL',
     'void': 'VOID',
     'object': 'OBJECT',
-    'php': "PHP"
+    'php': "PHP",
+    'this': "THIS"
     
 }
 
 # List of token names.   This is always required
 tokens = ('ENTERO', 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION', "COMA","ASIGNACION2","PREGUNTA","DOLLAR","NUMERO","DOS_PUNTOS","AUTOINCREMENTO","AUTODECREMENTO","IDENTIFIER","CONCAT_ASIG",
-          'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING1','STRING2', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA', 'ID',"AMPERSANT","HASHTAG","DOT", "COMILLASIMPLE", "COMILLASDOBLES",
+    'FLOTANTE', 'VARIABLE', 'ASIGNACION', 'STRING1','STRING2', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA', 'ID',"AMPERSANT","HASHTAG","DOT", "COMILLASIMPLE", "COMILLASDOBLES","ARROW",
           'MAYORQUE', 'DOUBLE','LLLAVE','RLLAVE', 'ASIGNACION_AUMENTADA', 'ASIGNACION_DISMINUIDA', 'DESIGUALDAD', 'MAYORIGUAL', 'MENORIGUAL', 'COMENTARIO') + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
@@ -100,6 +101,7 @@ t_COMA = r','
 # t_COMILLASDOBLES = r'\"'
 t_FINAL_DE_LINEA = r';'
 t_DOS_PUNTOS = r':'
+t_ARROW =r'->'
 
 # Define a rule so we can track line numbers
 def t_newline(t):
