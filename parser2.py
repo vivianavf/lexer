@@ -43,10 +43,10 @@ def p_php_statement_0 (p):
 # declaracion y modficacion de variable
 #######################################################################################################3
 def p_var_declaration_base(p):
-    'var_declaration : var_declaration FINAL_DE_LINEA'
+    'var_declaration : var_dcl FINAL_DE_LINEA'
 
 def p_var_modification_base(p):
-    'var_modification : var_modification FINAL_DE_LINEA'
+    'var_modification : var_modi FINAL_DE_LINEA'
 ######################################
 # expresion, everithing that can be stored in a vaiable 
 ######################################
@@ -55,6 +55,7 @@ def p_expresion (p):
     ''' expresion : math_expr 
                     | string
                     | boolean
+                    | array
     '''
     pass
 
@@ -105,18 +106,18 @@ def p_string_3 (p):
     pass
 
 # asignnar un string a una variable
-def p_var_declaration_s (p): 
-    'var_declaration : VARIABLE ASIGNACION string '   
+def p_var_dcl_s (p): 
+    'var_dcl : VARIABLE ASIGNACION string '   
     pass
 
 # concatenacion assigncacion (operador .=)
-def p_var_modification_CONCAT (p): 
-    'var_modification : VARIABLE CONCAT_ASIG string '
+def p_var_modi_CONCAT (p): 
+    'var_modi : VARIABLE CONCAT_ASIG string '
     pass
 
 # concatenacion assigncacion (operador .=)
-def p_var_modification_CONCAT2 (p):
-    'var_modification : VARIABLE CONCAT_ASIG VARIABLE '
+def p_var_modi_CONCAT2 (p):
+    'var_modi : VARIABLE CONCAT_ASIG VARIABLE '
     pass
 
 ######################################
@@ -205,20 +206,20 @@ def p_operaciones2 (p):
     'operaciones_mat : operacion_mat operaciones_mat'
     pass
 
-def p_var_declaration_n (p):
-    'var_declaration : VARIABLE ASIGNACION math_expr '
+def p_var_dcl_n (p):
+    'var_dcl : VARIABLE ASIGNACION math_expr '
     pass
 
-def p_var_modification1 (p):
-    'var_modification : VARIABLE AUTOINCREMENTO '
+def p_var_modi1 (p):
+    'var_modi : VARIABLE AUTOINCREMENTO '
     pass
-def p_var_modification2 (p):
-    'var_modification : VARIABLE AUTODECREMENTO '
+def p_var_modi2 (p):
+    'var_modi : VARIABLE AUTODECREMENTO '
     pass
-def p_var_modification3 (p):
-    'var_modification : VARIABLE ASIGNACION_AUMENTADA math_expr '
-def p_var_modification4 (p):
-    'var_modification : VARIABLE ASIGNACION_DISMINUIDA math_expr '
+def p_var_modi3 (p):
+    'var_modi : VARIABLE ASIGNACION_AUMENTADA math_expr '
+def p_var_modi4 (p):
+    'var_modi : VARIABLE ASIGNACION_DISMINUIDA math_expr '
 #######################################################################################################3
 #  if statement
 #######################################################################################################3
@@ -318,8 +319,35 @@ def p_while_loop (p):
 # for loop
 #######################################################################################################3
 def p_for_loop (p):
-    'for_loop : FOR LPAREN var_declaration FINAL_DE_LINEA boolean FINAL_DE_LINEA var_modification RPAREN scope'
+    'for_loop : FOR LPAREN var_dcl FINAL_DE_LINEA boolean FINAL_DE_LINEA var_modi RPAREN scope'
 
+#######################################################################################################3
+# array
+#######################################################################################################3
+def p_assigncacionArrow(p):
+    ' assigncacionArrow : expresion ASIGNACION2 expresion'
+
+def p_arrayItem (p):
+    ''' array_item : assigncacionArrow 
+                    | expresion'''
+def p_key_value_items (p):
+    ' array_items : array_item '
+def p_key_value_items2 (p):
+    ' array_items : array_item COMA array_items'
+#define a single element o an array
+def p_argument (p):
+    ' arg : expresion'
+def p_manyArgument_base (p):
+    ' many_args : arg'
+def p_manyArgument_recursive (p):
+    ' many_args :  arg COMA many_args'
+
+
+def p_array(p):
+    ' array : ARRAY LPAREN array_items RPAREN'
+
+def p_array_declaration(p):
+    'var_dcl : VARIABLE ASIGNACION array'
 # printing to the console
 def p_echo (p):
     'echo : ECHO expresion FINAL_DE_LINEA'

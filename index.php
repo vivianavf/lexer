@@ -48,11 +48,11 @@ for ($x = 0; $x <= 100; $x+=10) {
 }
 
 //Varios tipos de creación de arrays
-array("foo", "bar", "hello", "world");
-array("foo" => "bar", "bar" => "foo", 100   => -100, -100  => 100,);
-array(1 => "a", "1" => "b", 1.5 => "c", true => "d");
-array("foo" => "bar", "bar" => "foo");
-array("a", "b", 6 => "c", "d");
+$array1 = array("foo", "bar", "hello", "world");
+$array2 = array("foo" => "bar", "bar" => "foo", 100   => -100, -100  => 100);
+$array3 = array(1 => "a", "1" => "b", 1.5 => "c", true => "d");
+$array4 = array("foo" => "bar", "bar" => "foo");
+$array5 = array("a", "b", 6 => "c", "d");
 
 
 
