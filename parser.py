@@ -280,7 +280,7 @@ def p_many_elseif1(p):
 # boolean operations
 ######################################
 
-# comparaciones que reciben2 rgumentos y retornan booleans
+# comparaciones que reciben 2 argumentos y retornan booleans
 def p_comp_binary_operator (p):
     '''comp_bin_oprs : MAYORQUE
                         | MENORQUE
@@ -390,7 +390,6 @@ def p_arrayItems_single (p):
 def p_arrayItems (p):
     ' array_items : array_item COMA array_items'
 
-
 def p_array(p):
     ' array : ARRAY LPAREN array_items RPAREN'
 
@@ -464,7 +463,7 @@ def p_class (p):
 ######################################
 def p_member_var_dcl (p):
     ' mem_var_dcl : modf_acso VARIABLE FINAL_DE_LINEA '
-def p_member_var_dcl_comentario (p):#TODO: esto no debe hacerse asi, los comentarios debern ser ignorados 
+def p_member_var_dcl_comentario (p):#TODO: esto no debe hacerse asi, los comentarios deben ser ignorados
     ' mem_var_dcl : COMENTARIO'
 def p_member_variables_base (p):
     ' mem_vars : mem_var_dcl' 
