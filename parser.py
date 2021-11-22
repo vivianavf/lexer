@@ -75,10 +75,9 @@ def p_expresion (p):
     pass
 
 ######################################
-# strings 
+# strings aporte de Jorge Vulgarin
 ######################################
 # TODO: faltan metodos de string
-
 # concatenacion de strings
 
 # string_concat es [1 o mas] instancias de (. string | . variable)
@@ -377,7 +376,7 @@ def p_for_loop (p):
     'for_loop : FOR LPAREN var_dcl FINAL_DE_LINEA boolean FINAL_DE_LINEA var_modi RPAREN scope'
 
 #######################################################################################################3
-# array
+# array, contribucion de jorge Vugarin
 #######################################################################################################3
 def p_assigncacionArrow(p):
     ' assigncacionArrow : expresion ASIGNACION2 expresion'
@@ -436,7 +435,7 @@ def p_func_call_with_arguments (p):
     ' func_call : IDENTIFIER LPAREN values RPAREN '
 
 #######################################################################################################3
-# class
+# clas, contribucion de Jorge Vulgarin
 #######################################################################################################3
 ######################################
 # self reference, using "this->"
