@@ -149,7 +149,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-f = open("arrays.php")
+f = open("index.php")
 data = ''.join(f.readlines())
 
 if __name__ =="__main__":

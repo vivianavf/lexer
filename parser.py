@@ -381,17 +381,16 @@ def p_for_loop (p):
 #######################################################################################################
 
 def p_array_clave(p):
-  """array_clave: STRING1 
-                  | STRING2 
+  """array_clave : string  
                   | boolean 
-                  | NUMERO
-                  | NULL"""
-
+                  | math_expr
+                     """
 def p_array_elemento(p):
-  """array_elemento: math_expr
-                    | STRING
+  """array_elemento : math_expr
+                    | string
                     | boolean
-                    | array"""
+                    | array
+                  | NULL"""
 
 def p_asignacionArrow(p):
     ' asignacionArrow : array_clave ASIGNACION2 array_elemento'
@@ -399,7 +398,9 @@ def p_asignacionArrow(p):
 def p_arrayItem (p):
     ''' array_item : asignacionArrow 
                     | array_elemento'''
-    
+
+def p_arrayItems_single (p):
+    ' array_items : array_item '
 def p_arrayItems (p):
     ' array_items : array_item COMA array_items'
 

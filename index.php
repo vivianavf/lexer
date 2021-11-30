@@ -61,7 +61,8 @@ echo "I like " . $cars[0] . ", " . $cars[1] . " and " . $cars[2] . ".";
 echo $array5[6];
 $suma = $array2[100] + $array5[-100];
 
-$arrayerror = array([1,2]=>"foo");
+/* $arrayerror = array([1,2]=>"foo"); */
+$array = array)4=>"foo);
 
 //functions
 function writeMsg() {
