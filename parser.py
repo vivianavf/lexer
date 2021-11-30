@@ -429,7 +429,7 @@ def p_boolean_true(p):
     ' boolean_true: VARIABLE ASIGNACION true'
 #conversion de una variable a booleano
 def p_boolean_conv(p):
-    ' boolean : BOOL LPAREN VARIABLE RPAREN'
+    ' boolean : LPAREN BOOL RPAREN VARIABLE'
 
 #######################################################################################################3
 # functions
