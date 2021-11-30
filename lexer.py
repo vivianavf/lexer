@@ -30,7 +30,8 @@ reserved = {
     'true': 'TRUE',
     'false': 'FALSE',
     'php': "PHP",
-    'this': "THIS"
+    'this': "THIS",
+    'bool': "BOOL"
     
 }
 

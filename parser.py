@@ -112,7 +112,7 @@ def p_string_1 (p):
     '''
     pass
 
-# se define como string a un "" segudo por multiples concatenaciones
+# se define como string a un "" seguido por multiples concatenaciones
 def p_string_2 (p): 
     ' string : string string_concats'
     pass
@@ -418,6 +418,18 @@ def p_array_indexing(p):
     
 # def p_copy_array_element (p):
 #     ' var_accs : indexing'
+#######################################################################################################3
+# booleans, contribucion de Adriana Guilindro
+#######################################################################################################3
+#asignar el valor de false a una variable
+def p_boolean_false(p):
+    ' boolean_false: VARIABLE ASIGNACION false'
+#asignar el valor de true a una variable
+def p_boolean_true(p):
+    ' boolean_true: VARIABLE ASIGNACION true'
+#conversion de una variable a booleano
+def p_boolean_conv(p):
+    ' boolean : BOOL LPAREN VARIABLE RPAREN'
 
 #######################################################################################################3
 # functions
