@@ -377,15 +377,29 @@ def p_for_loop (p):
 
 #######################################################################################################3
 # array, contribucion de jorge Vugarin
-#######################################################################################################3
-def p_assigncacionArrow(p):
-    ' assigncacionArrow : expresion ASIGNACION2 expresion'
+# semantica de arrays, Viviana Vera
+#######################################################################################################
+
+def p_array_clave(p):
+  """array_clave: STRING1 
+                  | STRING2 
+                  | boolean 
+                  | NUMERO
+                  | NULL"""
+
+def p_array_elemento(p):
+  """array_elemento: math_expr
+                    | STRING
+                    | boolean
+                    | array"""
+
+def p_asignacionArrow(p):
+    ' asignacionArrow : array_clave ASIGNACION2 array_elemento'
 
 def p_arrayItem (p):
-    ''' array_item : assigncacionArrow 
-                    | expresion'''
-def p_arrayItems_single (p):
-    ' array_items : array_item '
+    ''' array_item : asignacionArrow 
+                    | array_elemento'''
+    
 def p_arrayItems (p):
     ' array_items : array_item COMA array_items'
 
@@ -399,7 +413,8 @@ def p_array_declaration(p):
 # indexing
 ######################################
 def p_array_indexing(p):
-    ' var_accs : VARIABLE LBRACKET expresion RBRACKET'
+    ' var_accs : VARIABLE LBRACKET array_clave RBRACKET'
+    
 # def p_copy_array_element (p):
 #     ' var_accs : indexing'
 
@@ -497,13 +512,17 @@ def p_comment (p):
     'comentario : COMENTARIO '
     pass
 
+
+
+
 def p_error(p):
     if p is not None:
         print ("ERROR SINTACTICO EN LA LINEA " + str(p.lexer.lineno) + " NO SE ESPERABA EL Token  " + str(p.value) + "de tipo " + str(p))
     else:
         pass
 
+
+
 parser = yacc.yacc()
 if __name__ == "__main__":
     parser.parse(lexer.data)
-    

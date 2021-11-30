@@ -4,6 +4,10 @@ import ply.lex as lex
 
 #palabras reservadas
 
+##################
+# Viviana Vera
+##################
+
 reserved = {
     'and': 'AND',
     'array': 'ARRAY',
@@ -31,9 +35,9 @@ reserved = {
 }
 
 # List of token names.   This is always required
-tokens = ( 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION', "COMA","ASIGNACION2","PREGUNTA","NUMERO","AUTOINCREMENTO","AUTODECREMENTO","IDENTIFIER","CONCAT_ASIG",
+tokens = ( 'MAS', 'MENOS', 'MULTIPLICACION', 'DIVISION', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET','NEGACION', "COMA","ASIGNACION2","PREGUNTA", "NUMERO" ,"AUTOINCREMENTO","AUTODECREMENTO","IDENTIFIER","CONCAT_ASIG",
      'VARIABLE', 'ASIGNACION', 'STRING1','STRING2', 'EQUALS', 'SAME', 'MENORQUE', 'FINAL_DE_LINEA', "DOT", "ARROW",
-          'MAYORQUE', 'LLLAVE','RLLAVE', 'ASIGNACION_AUMENTADA', 'ASIGNACION_DISMINUIDA', 'DESIGUALDAD', 'MAYORIGUAL', 'MENORIGUAL', 'COMENTARIO') + tuple(reserved.values())
+          'MAYORQUE', 'LLLAVE','RLLAVE', 'ASIGNACION_AUMENTADA', 'ASIGNACION_DISMINUIDA', 'DESIGUALDAD', 'MAYORIGUAL', 'MENORIGUAL', 'COMENTARIO', 'NULL') + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
 #simbolor matematicos
@@ -55,9 +59,10 @@ t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 
 #primitivos
-#  t_ENTERO = r'\d+'
-#  t_FLOTANTE = r'\d+\.\d+'
+#t_ENTERO = r'\d+'
+#t_FLOTANTE = r'\d+\.\d+'
 
+t_NULL = r'null'
 
 # ASIGNACION
 t_ASIGNACION = r'='
@@ -87,11 +92,13 @@ t_ARROW =r'->'
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+
 #NUMERO, flotante o entero
 def t_NUMERO(t):
     r'\d+(\.\d+)?'
     t.value = float(t.value)
     return t
+
 #Define una variable
 def t_VARIABLE(t):
     r'\$([a-zA-Z]|_)([a-zA-Z]|\d|_)*'
@@ -142,7 +149,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-f = open("index.php")
+f = open("arrays.php")
 data = ''.join(f.readlines())
 
 if __name__ =="__main__":
