@@ -1,5 +1,5 @@
 <? php
-// cadneas
+// cadenas
 $hola = 'hola';
 $saludo = "hola" . " a todos" . 'hoy';
 $cadena = 'hola' . $saludo . $saludo;
@@ -63,6 +63,16 @@ $suma = $array2[100] + $array5[-100];
 
 /* $arrayerror = array([1,2]=>"foo"); */
 $array = array)4=>"foo);
+
+//Booleans
+$entradaverdadera = True;
+$entradafalsa = False;
+
+//conversion
+
+(bool) 1
+(bool) -2
+(bool) ""
 
 //functions
 function writeMsg() {
