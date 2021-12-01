@@ -182,6 +182,10 @@ def p_math_operator (p):
                     | DIVISION
     '''
 
+######################################
+# expresiones matermaticas aporte de jorge vulgarin
+# componentes sintanticos y semanticos
+######################################
 #math numeros idividuales
 def p_math_expr1 (p):
     'math_expr : NUMERO '
@@ -425,10 +429,10 @@ def p_array_indexing(p):
 #######################################################################################################3
 #asignar el valor de false a una variable
 def p_boolean_false(p):
-    ' boolean_false: VARIABLE ASIGNACION false'
+    ' boolean_false : VARIABLE ASIGNACION FALSE'
 #asignar el valor de true a una variable
 def p_boolean_true(p):
-    ' boolean_true: VARIABLE ASIGNACION true'
+    ' boolean_true : VARIABLE ASIGNACION TRUE'
 #conversion de una variable a booleano
 def p_boolean_conv(p):
     ' boolean : LPAREN BOOL RPAREN VARIABLE'
