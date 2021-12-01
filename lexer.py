@@ -148,7 +148,6 @@ def t_error(t):
     # que esta fuera del alcance de esta funcion
     global resultado
     advertencia = "No se reconoce el siguiente componente léxico --->'%s'" % t.value[0]
-    resultado.append(advertencia)
     errores.append(advertencia)
     t.lexer.skip(1)
 
@@ -160,14 +159,15 @@ def prueba(data):
     lexer = lex.lex()
     lexer.input(data)
     resultado.clear()
+    errores.clear()
     # Tokenize
     while True:
         tok = lexer.token()
         if not tok:
             break  # No more input
         lectura = str(tok)
-        if lectura.startswith("No"):
-            errores.append(lectura)
+        #if lectura.startswith("No"):
+        #    errores.append(lectura)
         resultado.append(lectura)
     return resultado
 

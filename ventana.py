@@ -56,9 +56,10 @@ class MainWindow(QMainWindow):
 
     # Analiza de manera lexica el texto en consola
     def analizarLexico(self):
+        self.ui.consola.setText("")
+        self.ui.errores.setText("")
         #Obtener datos que esten en el codigo fuente
         datos = self.ui.codigo_fuente.toPlainText().strip()
-
         # analisis completo
         resultado_lexico = prueba(datos)
         cadena = ""
@@ -77,7 +78,24 @@ class MainWindow(QMainWindow):
 
     ## Analiza de manera sintáctica y semántica el texto en consola
     def analizarSyntax(self):
-        self.ui.consola.setText('a')
+        self.ui.consola.setText("")
+        self.ui.errores.setText("")
+        # Obtener datos que esten en el codigo fuente
+        datos = self.ui.codigo_fuente.toPlainText().strip()
+        # analisis completo
+        resultado_syntax = pruebasyntax(datos)
+        cadena = ""
+        for s in resultado_syntax:
+            cadena += s + "\n"
+
+        # errores
+        resultado_errores = errorsyntax(datos)
+        cadena_errores = ""
+        for error in resultado_errores:
+            cadena_errores += error + "\n"
+
+        self.ui.consola.setText(cadena)
+        self.ui.errores.setText(cadena_errores)
 
     #Elimina todos los textos en pantalla
     def limpiar(self):

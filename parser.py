@@ -2,6 +2,8 @@ from lexer import tokens
 import lexer
 import ply.yacc as yacc
 
+resultado_parser=[]
+errores_parser=[]
 
 def p_php_code (p):
     'php_code : php_heading statements php_end'
@@ -525,17 +527,31 @@ def p_comment (p):
     'comentario : COMENTARIO '
     pass
 
-
-
-
+#Manejo de errores
 def p_error(p):
-    if p is not None:
-        print ("ERROR SINTACTICO EN LA LINEA " + str(p.lexer.lineno) + " NO SE ESPERABA EL Token  " + str(p.value) + "de tipo " + str(p))
+    if p:
+        print ("ERROR EN LA LINEA " + str(p.lexer.lineno) + " NO SE ESPERABA EL Token  " + str(p.value) + "de tipo " + str(p))
+        errores_parser.append(str(p))
     else:
         pass
 
+def pruebasyntax(datos):
+    global resultado_parser
+    resultado_parser.clear()
+    errores_parser.clear()
 
+    for word in data.splitlines():
+        if word:
+            s = parser.parse(word)
+            if s:
+                resultado_parser.append(str(s))
+    return resultado_parser
 
 parser = yacc.yacc()
+
+def errorsyntax(data):
+    return errores_parser
+
 if __name__ == "__main__":
     parser.parse(lexer.data)
+
