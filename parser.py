@@ -2,8 +2,8 @@ from lexer import tokens
 import lexer
 import ply.yacc as yacc
 
-resultado_parser=[]
-errores_parser=[]
+resultado_parser = ""
+errores_parser = ""
 
 def p_php_code (p):
     'php_code : php_heading statements php_end'
@@ -429,13 +429,13 @@ def p_array_indexing(p):
 #######################################################################################################3
 #asignar el valor de false a una variable
 def p_boolean_false(p):
-    ' boolean_false : VARIABLE ASIGNACION FALSE'
+    ' var_dcl : VARIABLE ASIGNACION FALSE'
 #asignar el valor de true a una variable
 def p_boolean_true(p):
-    ' boolean_true : VARIABLE ASIGNACION TRUE'
+    ' var_dcl : VARIABLE ASIGNACION TRUE'
 #conversion de una variable a booleano
 def p_boolean_conv(p):
-    ' boolean : LPAREN BOOL RPAREN VARIABLE'
+    ' boolean : LPAREN BOOL RPAREN expresion'
 
 #######################################################################################################3
 # functions
@@ -533,27 +533,30 @@ def p_comment (p):
 
 #Manejo de errores
 def p_error(p):
+    global errores_parser
     if p:
         print ("ERROR EN LA LINEA " + str(p.lexer.lineno) + " NO SE ESPERABA EL Token  " + str(p.value) + "de tipo " + str(p))
-        errores_parser.append(str(p))
+        errores_parser = "\nERROR EN LA LINEA " + str(p.lexer.lineno) + " NO SE ESPERABA EL Token  " + str(p.value) + "de tipo " + str(p)
     else:
         pass
 
-def pruebasyntax(datos):
-    global resultado_parser
-    resultado_parser.clear()
-    errores_parser.clear()
-
-    for word in data.splitlines():
-        if word:
-            s = parser.parse(word)
-            if s:
-                resultado_parser.append(str(s))
-    return resultado_parser
-
 parser = yacc.yacc()
 
-def errorsyntax(data):
+def pruebasyntax(datos):
+    print("input ", datos)
+    global resultado_parser
+    global errores_parser
+    resultado_parser = ""
+    errores_parser = ""
+
+    s = parser.parse(datos)
+    if s == None :
+        s = ""
+    resultado_parser = s
+    return resultado_parser,errores_parser
+
+
+def errorsyntax():
     return errores_parser
 
 if __name__ == "__main__":

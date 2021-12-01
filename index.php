@@ -50,7 +50,7 @@ for ($x = 0; $x <= 100; $x+=10) {
 }
 
 //Varios tipos de creación de arrays
-$array1 = array)"foo", "bar", "hello", "world");
+/* $array1 = array)"foo", "bar", "hello", "world"); */
 $array2 = array("foo" => "bar", "bar" => "foo", 100   => -100, -100  => 100);
 $array3 = array(1 => "a", "1" => "b", 1.5 => "c", true => "d");
 $array4 = array("foo" => "bar", "bar" => "foo");
@@ -62,17 +62,17 @@ echo $array5[6];
 $suma = $array2[100] + $array5[-100];
 
 /* $arrayerror = array([1,2]=>"foo"); */
-$array = array)4=>"foo);
+/* $array = array)4=>"foo); */
 
 //Booleans
-$entradaverdadera = True;
-$entradafalsa = False;
+$entradaverdadera = true;
+$entradafalsa = false;
 
 //conversion
 
-(bool) 1
-(bool) -2
-(bool) ""
+(bool) 1;
+(bool) -2;
+(bool) "";
 
 //functions
 function writeMsg() {

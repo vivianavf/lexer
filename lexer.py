@@ -176,9 +176,10 @@ def analisiserrores(data):
 
 lexer = lex.lex()
 
+f = open("index.php")
+data = ''.join(f.readlines())
+
 if __name__ =="__main__":
-        f = open("index.php")
-        data = ''.join(f.readlines())
         prueba(data)
         print(resultado)
 
