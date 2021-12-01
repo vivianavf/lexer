@@ -23,14 +23,16 @@ class MainWindow(QMainWindow):
         self.ui.actionAnalizar.triggered.connect(self.analizar)
 
     # Metodo para importar archivos
+    # Solo permite importar .txt
     def importar(self):
         archivo = QFileDialog.getOpenFileName(self, 'importar',  '?\lexer', 'index.txt')
         if archivo[0]:
             with open(archivo[0], 'rt') as f:
                 datos = f.read()
-                self.ui.texto.setText(datos)
+                self.ui.codigo_fuente.setText(datos)
 
     # Otro metodo para importar archivos
+    # Permite importar cualquier archivo
     def importar2(self):
         dlg = QFileDialog()
         if dlg.exec_():
@@ -39,7 +41,7 @@ class MainWindow(QMainWindow):
             with f:
                 data = f.read().strip()
                 if data:
-                    self.ui.texto.setText(data+'\n')
+                    self.ui.codigo_fuente.setText(data+'\n')
 
 
     def analizar(self):
