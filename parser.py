@@ -551,7 +551,7 @@ def pruebasyntax(datos):
 
     s = parser.parse(datos)
     if s == None :
-        s = ""
+        s = "NO HAY ERRORES"
     resultado_parser = s
     return resultado_parser,errores_parser
 
