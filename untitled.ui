@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="fondo">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -30,25 +33,68 @@
      <pixmap resource="fondo.qrc">:/fondo/fondo.jpg</pixmap>
     </property>
    </widget>
-   <widget class="QTextEdit" name="codigo_fuente">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>70</y>
-      <width>701</width>
-      <height>171</height>
+      <x>10</x>
+      <y>20</y>
+      <width>741</width>
+      <height>541</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QTextEdit" name="consola">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>320</y>
-      <width>701</width>
-      <height>201</height>
-     </rect>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>11</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <family>Ticketing</family>
+         <pointsize>24</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Código</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="codigo_fuente"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <family>Ticketing</family>
+         <pointsize>24</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Análisis Completo</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="consola"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <family>Ticketing</family>
+         <pointsize>24</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Errores</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="errores"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -65,9 +111,12 @@
      <string>Opciones</string>
     </property>
     <addaction name="actionImportar"/>
-    <addaction name="actionAnalizar"/>
     <addaction name="separator"/>
     <addaction name="actionLimpiar"/>
+    <addaction name="separator"/>
+    <addaction name="actionAnalizar"/>
+    <addaction name="actionAnalizarSyntax"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menuOpciones"/>
   </widget>
@@ -79,12 +128,17 @@
   </action>
   <action name="actionAnalizar">
    <property name="text">
-    <string>Analizar</string>
+    <string>Analizador Léxico</string>
    </property>
   </action>
   <action name="actionLimpiar">
    <property name="text">
     <string>Limpiar</string>
+   </property>
+  </action>
+  <action name="actionAnalizarSyntax">
+   <property name="text">
+    <string>Analizador SintácticoSemántico</string>
    </property>
   </action>
  </widget>

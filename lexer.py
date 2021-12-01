@@ -4,9 +4,15 @@ import ply.lex as lex
 
 #palabras reservadas
 
+# Ejecutable: ventana.py
+
 ##################
-# Viviana Vera
+# Viviana Vera: palabras reservadas, se hizo correcciones
 ##################
+
+#resultado del analisis
+resultado = []
+errores = []
 
 reserved = {
     'and': 'AND',
@@ -131,35 +137,49 @@ def t_STRING2(t):
     # r'\'([^\'].)*\''
     return t
 
-
-
-
-
 def t_COMENTARIO(t):
   r'(//.*)|(/\*.*\*/)|(\#.*)'
   t.type = reserved.get(t.value, 'COMENTARIO')
   return t
 
-# Error handling rule
+#Manejo de errores
 def t_error(t):
-    print("No se reconoce el siguiente componente léxico --->'%s'" % t.value[0])
+    # con global puedo modificar resultado, una variable
+    # que esta fuera del alcance de esta funcion
+    global resultado
+    advertencia = "No se reconoce el siguiente componente léxico --->'%s'" % t.value[0]
+    resultado.append(advertencia)
+    errores.append(advertencia)
     t.lexer.skip(1)
 
-
-# Build the lexer
-lexer = lex.lex()
-
-# Test it out
-f = open("index.php")
-data = ''.join(f.readlines())
-
-if __name__ =="__main__":
-# Give the lexer some input
+# Funcion para probar el analizador
+def prueba(data):
+    #con global puedo modificar resultado, una variable
+    #que esta fuera del alcance de esta funcion
+    global resultado
+    lexer = lex.lex()
     lexer.input(data)
-
-# Tokenize
+    resultado.clear()
+    # Tokenize
     while True:
         tok = lexer.token()
         if not tok:
             break  # No more input
-        print(tok)
+        lectura = str(tok)
+        if lectura.startswith("No"):
+            errores.append(lectura)
+        resultado.append(lectura)
+    return resultado
+
+def analisiserrores(data):
+    return errores
+
+lexer = lex.lex()
+
+if __name__ =="__main__":
+        f = open("index.php")
+        data = ''.join(f.readlines())
+        prueba(data)
+        print(resultado)
+
+

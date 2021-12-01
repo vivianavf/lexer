@@ -2,6 +2,14 @@ from ventana_ui import *
 from lexer import *
 from parser import *
 
+### Interfaz gráfica
+## Aporte de: Viviana Vera
+
+### Incluye archivos: untitled.ui, ventana_ui.py, ventana.py
+# Ejecutable: ventana.py
+
+# fix bug importar una imagen como fondo de la ventana
+
 import sys
 from PyQt5.QtWidgets import QAction, QApplication, QFileDialog, QMainWindow
 
@@ -20,7 +28,10 @@ class MainWindow(QMainWindow):
 
         #Conectar las acciones con las funciones definidas
         self.ui.actionImportar.triggered.connect(self.importar2)
-        self.ui.actionAnalizar.triggered.connect(self.analizar)
+        self.ui.actionAnalizar.triggered.connect(self.analizarLexico)
+        self.ui.actionAnalizarSyntax.triggered.connect(self.analizarSyntax)
+        self.ui.actionLimpiar.triggered.connect(self.limpiar)
+
 
     # Metodo para importar archivos
     # Solo permite importar .txt
@@ -43,9 +54,36 @@ class MainWindow(QMainWindow):
                 if data:
                     self.ui.codigo_fuente.setText(data+'\n')
 
+    # Analiza de manera lexica el texto en consola
+    def analizarLexico(self):
+        #Obtener datos que esten en el codigo fuente
+        datos = self.ui.codigo_fuente.toPlainText().strip()
 
-    def analizar(self):
+        # analisis completo
+        resultado_lexico = prueba(datos)
+        cadena = ""
+        for lex in resultado_lexico:
+            cadena += lex+"\n"
+
+        #errores
+        resultado_errores = analisiserrores(datos)
+        cadena_errores = ""
+        for error in resultado_errores:
+            cadena_errores+= error+"\n"
+
+        self.ui.consola.setText(cadena)
+        self.ui.errores.setText(cadena_errores)
+
+
+    ## Analiza de manera sintáctica y semántica el texto en consola
+    def analizarSyntax(self):
         self.ui.consola.setText('a')
+
+    #Elimina todos los textos en pantalla
+    def limpiar(self):
+        self.ui.consola.setText("")
+        self.ui.codigo_fuente.setText("")
+        self.ui.errores.setText("")
 
 if __name__ == "__main__":
     #Instanciar la app
