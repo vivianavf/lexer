@@ -180,6 +180,10 @@ def p_math_operator (p):
                     | DIVISION
     '''
 
+######################################
+# expresiones matermaticas aporte de jorge vulgarin
+# componentes sintanticos y semanticos
+######################################
 #math numeros idividuales
 def p_math_expr1 (p):
     'math_expr : NUMERO '
