@@ -174,7 +174,7 @@ def prueba(data):
 def analisiserrores(data):
     return errores
 
-lexer = lex.lex()
+my_lexer = lex.lex()
 
 f = open("index.php")
 data = ''.join(f.readlines())

@@ -84,7 +84,6 @@ class MainWindow(QMainWindow):
         datos = self.ui.codigo_fuente.toPlainText().strip()
         # analisis completo
         resultado_syntax,resultado_errores = pruebasyntax(datos)
-        print("resultado",resultado_syntax,resultado_errores)
         cadena = resultado_syntax
         # errores
         cadena_errores = resultado_errores
