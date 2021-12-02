@@ -171,7 +171,7 @@ def prueba(data):
         resultado.append(lectura)
     return resultado
 
-def analisiserrores(data):
+def analisiserrores():
     return errores
 
 my_lexer = lex.lex()
