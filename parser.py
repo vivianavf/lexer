@@ -6,8 +6,8 @@ from lexer import my_lexer
 import ply.yacc as yacc
 
 
-resultado_parser = ""
-errores_parser = ""
+#resultado_parser = []
+errores_parser = []
 
 def p_php_code (p):
     'php_code : php_heading statements php_end'
@@ -542,47 +542,43 @@ def p_error_falta_punto_y_coma (p):
     global errores_parser 
     error = "Falta ';' en linea #" + str(p.lineno(1)) + '\n'
     print(error)
-    errores_parser += error
+    errores_parser.append(error)
     raise SyntaxError
+
 def p_error_falta_punto_y_coma1 (p):
     '''error_sintax : var_dcl var_dcl'''
     global errores_parser 
     error = "Falta ';' en linea #" + str(p.lineno(1)) + '\n'
     print(error)
-    errores_parser += error
+    errores_parser.append(error)
     raise SyntaxError
 
 def p_error(p):
     global errores_parser
     if p:
-        print ("ERROR EN LA LINEA " + str(p.lexer.lineno) + " NO SE ESPERABA EL Token  " + str(p.value) + "de tipo " + str(p))
-        errores_parser += "ERROR EN LA LINEA " + str(p.lexer.lineno) + " NO SE ESPERABA EL Token  " + str(p.value) + "de tipo " + str(p) + "\n"
+        mensaje = "ERROR EN LA LINEA " + str(p.lexer.lineno) + " NO SE ESPERABA EL Token  " + str(p.value) + "de tipo " + str(p)
+        errores_parser.append(mensaje)
     else:
         pass
 
-
+#Construir el parser
+parser = yacc.yacc()
 
 def pruebasyntax(datos):
-    parser_internal = yacc.yacc()
-    my_lexer_clone = my_lexer.clone()
-
-    global resultado_parser
+    my_lexer_clone = my_lexer.clone() #objeto ply.lex.lexer
     global errores_parser
-    resultado_parser = ""
-    errores_parser = ""
-
-    s = parser_internal.parse(datos, tracking=True, lexer= my_lexer_clone) 
-    if s == None and errores_parser == "":
-        s = "NO HAY ERRORES"
-    resultado_parser = s
-    parser_internal.restart()
-    return resultado_parser,errores_parser
+    errores_parser.clear()
+    parser.parse(datos, tracking=True, lexer= my_lexer_clone)
+    if len(errores_parser)<1:
+        errores_parser.append("No hay errores ☺")
+    parser.restart()
+    return errores_parser #una lista
 
 
 def errorsyntax():
     return errores_parser
 
 if __name__ == "__main__":
-    parser = yacc.yacc()
-    parser.parse(lexer.data)
+    pruebasyntax(lexer.data)
+    print(pruebasyntax(lexer.data))
 

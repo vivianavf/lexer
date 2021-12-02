@@ -6,6 +6,7 @@ $cadena = 'hola' . $saludo . $saludo;
 $cadena .= $cadena ;
 $cadena .= $cadena . "hola" ;
 $cadena .= "hola que tal";
+$sumaerronea = "cadena" + 2;
 
 $flot = +-1.222;
 $flot = -+1.222;
@@ -69,7 +70,7 @@ $entradaverdadera = true;
 $entradafalsa = false;
 
 //conversion
-
+//error
 (bool) 1;
 (bool) -2;
 (bool) "";
