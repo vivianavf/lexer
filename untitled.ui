@@ -14,11 +14,33 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <widget class="QProgressBar" name="progressBar">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>360</y>
+      <width>741</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+    <property name="invertedAppearance">
+     <bool>false</bool>
+    </property>
+   </widget>
    <widget class="QLabel" name="TitResultado_2">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>380</y>
+      <y>390</y>
       <width>98</width>
       <height>32</height>
      </rect>
@@ -38,11 +60,25 @@
      <rect>
       <x>11</x>
       <y>6</y>
-      <width>751</width>
-      <height>371</height>
+      <width>741</width>
+      <height>341</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <widget class="QTextEdit" name="resultado"/>
+     </item>
+     <item row="1" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QTextEdit" name="codigo_fuente"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="TitCodigo">
        <property name="font">
@@ -55,33 +91,6 @@
         <string>Código</string>
        </property>
       </widget>
-     </item>
-     <item row="4" column="0">
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QTextEdit" name="codigo_fuente"/>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QProgressBar" name="progressBar">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="value">
-          <number>24</number>
-         </property>
-         <property name="invertedAppearance">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="TitResultado">
@@ -96,18 +105,15 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QTextEdit" name="resultado"/>
-     </item>
     </layout>
    </widget>
    <widget class="QTextEdit" name="errores">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>420</y>
+      <y>430</y>
       <width>751</width>
-      <height>161</height>
+      <height>151</height>
      </rect>
     </property>
    </widget>
