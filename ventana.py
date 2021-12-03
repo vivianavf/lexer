@@ -53,6 +53,7 @@ class MainWindow(QMainWindow):
     # Analiza de manera lexica el texto en consola
     def analizarLexico(self):
         self.ui.resultado.setText("")
+        self.ui.errores.setText("")
         #Obtener datos que esten en el codigo fuente
         datos = self.ui.codigo_fuente.toPlainText().strip()
 
@@ -69,21 +70,27 @@ class MainWindow(QMainWindow):
             cadena_errores+= error+"\n"
         if cadena_errores=="":
             cadena_errores+="NO HAY ERRORES ☺"
-        self.ui.resultado.setText(cadena_errores)
+        self.ui.resultado.setText(cadena)
+        self.ui.errores.setText(cadena_errores)
 
 
     ## Analiza de manera sintáctica y semántica el texto en consola
     def analizarSyntax(self):
         self.ui.resultado.setText("")
+        self.ui.errores.setText("")
         # Obtener datos que esten en el codigo fuente
         datos = self.ui.codigo_fuente.toPlainText().strip()
         # resultados
-        resultado = pruebasyntax(datos)
-        cadena_errores = ""
-        for error in resultado:
-            cadena_errores+=error+"\n"
+        # Aqui va el codigo de los resultados y errores
+        # variable resultado = un string con los resultados del parser
+        # variable cadena_errores = un string con los errores del parser
+        # si se hace una lista se la recorre y concatena a una cadena
 
-        self.ui.resultado.setText(cadena_errores)
+        resultado = "" # aqui va la funcion pruebasyntax(datos)
+        cadena_errores= "" # aqui va la funcion errorsyntax()
+
+        self.ui.resultado.setText(resultado)
+        self.ui.errores.setText(cadena_errores)
 
 if __name__ == "__main__":
     #Instanciar la app
