@@ -44,7 +44,8 @@ def p_php_statement_0 (p):
                     | comentario
                     | function
                     | function_call
-                    | echo
+                    | echo_statement
+                    | expresion_linea
                     | error_sintax
     '''
     pass
@@ -63,6 +64,10 @@ def p_function_declaration (p):
 
 def p_function_call (p):
     'function_call : func_call FINAL_DE_LINEA'
+def p_echo_statement (p):
+    'echo_statement : echo FINAL_DE_LINEA'
+def p_expresion_main (p):
+    'expresion_linea : expresion FINAL_DE_LINEA'
 
 #######################################################################################################3
 # declaracion y modficacion de variable
@@ -401,7 +406,7 @@ def p_array_elemento(p):
                     | string
                     | boolean
                     | array
-                  | NULL"""
+                    | NULL"""
 
 def p_asignacionArrow(p):
     ' asignacionArrow : array_clave ASIGNACION2 array_elemento'
@@ -529,7 +534,7 @@ def p_instanciacion(p):
 
 # printing to the console
 def p_echo (p):
-    'echo : ECHO expresion FINAL_DE_LINEA'
+    'echo : ECHO expresion '
     pass
 ## comentarios 
 def p_comment (p):
@@ -537,21 +542,21 @@ def p_comment (p):
     pass
 
 #Manejo de errores
+def p_termina_punto_y_coma(p):
+    '''falta_punto_y_coma : expresion
+                             | var_dcl
+                             | echo
+    '''
+    print("requiere_punto_y_coma detectado",str(p))
 def p_error_falta_punto_y_coma (p):
-    '''error_sintax : expresion expresion'''
+    'error_sintax : falta_punto_y_coma'
+    print ("error detectado")
     global errores_parser 
     error = "Falta ';' en linea #" + str(p.lineno(1)) + '\n'
     print(error)
     errores_parser.append(error)
     raise SyntaxError
 
-def p_error_falta_punto_y_coma1 (p):
-    '''error_sintax : var_dcl var_dcl'''
-    global errores_parser 
-    error = "Falta ';' en linea #" + str(p.lineno(1)) + '\n'
-    print(error)
-    errores_parser.append(error)
-    raise SyntaxError
 
 def p_error(p):
     global errores_parser
