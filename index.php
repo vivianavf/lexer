@@ -6,7 +6,7 @@ $cadena = 'hola' . $saludo . $saludo;
 $cadena .= $cadena ;
 $cadena .= $cadena . "hola" ;
 $cadena .= "hola que tal";
-$sumaerronea = "cadena" + 2;
+/* $sumaerronea = "cadena" + 2; */
 
 $flot = +-1.222;
 $flot = -+1.222;
