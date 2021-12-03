@@ -86,8 +86,8 @@ class MainWindow(QMainWindow):
         # variable cadena_errores = un string con los errores del parser
         # si se hace una lista se la recorre y concatena a una cadena
 
-        resultado = "" # aqui va la funcion pruebasyntax(datos)
-        cadena_errores= "" # aqui va la funcion errorsyntax()
+        resultado = "\n".join(pruebasyntax(datos)) # aqui va la funcion pruebasyntax(datos)
+        cadena_errores= "\n".join(errorsyntax()) # aqui va la funcion errorsyntax()
 
         self.ui.resultado.setText(resultado)
         self.ui.errores.setText(cadena_errores)

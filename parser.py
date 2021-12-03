@@ -9,24 +9,25 @@ symbols = {}# se usa para validar que simbols existen
 
 #resultado_parser = []
 errores_parser = []
+resultado_parser = []
 
 def format_parser_tree(str_tree):
     output = ""
     tab_count = 0
     for l in str_tree:
         if l == '(': 
-            output +="\n"+"    "*tab_count +"("
+            output +="\n"+"  "*tab_count +"("
             tab_count += 1
         elif l == ')': 
             tab_count -= 1
-            output += "    "*tab_count+")\n"
+            output += "  "*tab_count+")\n"
         else: output +=l
     return output
 
 def p_php_code (p):
     'php_code : php_heading statements php_end'
     p[0] = ("php_code" , p[2])
-    errores_parser.append(format_parser_tree(str(p[0])))
+    resultado_parser.append(format_parser_tree(str(p[0])))
 
 # php header: todos los programas php empiezan con estos tokens
 def p_php_heading (p):
@@ -715,7 +716,7 @@ def pruebasyntax(datos):
     if len(errores_parser)<1:
         errores_parser.append("No hay errores ☺")
     parser.restart()
-    return errores_parser #una lista
+    return resultado_parser #una lista
 
 
 def errorsyntax():
